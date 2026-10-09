@@ -1,0 +1,300 @@
+PRAGMA foreign_keys = ON;
+
+BEGIN TRANSACTION;
+
+
+-- =========================================================
+-- 1. AUTHOR
+-- =========================================================
+
+INSERT OR IGNORE INTO authors (
+    name,
+    bio
+)
+VALUES (
+    'অভ্র নীল',
+    'কাটা হাত গল্পের লেখক'
+);
+
+
+-- =========================================================
+-- 2. CATEGORY
+-- =========================================================
+
+INSERT OR IGNORE INTO categories (
+    name,
+    description,
+    sort_order
+)
+VALUES (
+    'Horror',
+    'ভৌতিক ও অশরীরী রহস্য গল্প',
+    0
+);
+
+
+-- =========================================================
+-- 3. STORY
+-- =========================================================
+
+INSERT INTO stories (
+    title,
+    description,
+    author_id,
+    language,
+    status,
+    is_featured,
+    is_new,
+    views,
+    rating,
+    rating_count,
+    is_premium
+)
+SELECT
+    'কাটা_হাত',
+    'ঝড়ের রাতে অভ্রের ঘরে কাটা হাতের অদ্ভুত উপস্থিতি, রহস্যময় গুহা সফর এবং এক অভিশপ্ত রাজার গুপ্তধন উদ্ধারের থ্রিলার গল্প।',
+    a.id,
+    'bn',
+    'published',
+    0,
+    1,
+    0,
+    0.0,
+    0,
+    0
+FROM authors a
+WHERE a.name = 'অভ্র নীল'
+AND NOT EXISTS (
+    SELECT 1
+    FROM stories s
+    WHERE s.title = 'কাটা_হাত'
+);
+
+
+-- =========================================================
+-- 4. STORY CATEGORY
+-- =========================================================
+
+INSERT OR IGNORE INTO story_categories (
+    story_id,
+    category_id
+)
+SELECT
+    s.id,
+    c.id
+FROM stories s
+CROSS JOIN categories c
+WHERE s.title = 'কাটা_হাত'
+AND c.name = 'Horror';
+
+
+-- =========================================================
+-- 5. CHAPTER 1
+-- =========================================================
+
+INSERT OR IGNORE INTO chapters (
+    story_id,
+    chapter_number,
+    title,
+    content,
+    word_count,
+    is_locked
+)
+SELECT
+    s.id,
+    1,
+    '১ম পর্ব — ঝড়ের রাতে অভ্রের আহত হওয়া ও কাটা হাতের রহস্যময় স্পর্শ।',
+    '',
+    0,
+    0
+FROM stories s
+WHERE s.title = 'কাটা_হাত';
+
+
+-- =========================================================
+-- 6. CHAPTER 2
+-- =========================================================
+
+INSERT OR IGNORE INTO chapters (
+    story_id,
+    chapter_number,
+    title,
+    content,
+    word_count,
+    is_locked
+)
+SELECT
+    s.id,
+    2,
+    '২য় পর্ব — বন্ধুদের অবিশ্বাস ও পায়ে কাটা হাতের ৫ আঙুলের দাগ।',
+    '',
+    0,
+    0
+FROM stories s
+WHERE s.title = 'কাটা_হাত';
+
+
+-- =========================================================
+-- 7. CHAPTER 3
+-- =========================================================
+
+INSERT OR IGNORE INTO chapters (
+    story_id,
+    chapter_number,
+    title,
+    content,
+    word_count,
+    is_locked
+)
+SELECT
+    s.id,
+    3,
+    '৩য় পর্ব — কাটা হাতের সরাসরি আবির্ভাব ও খাতায় সাহায্য চাওয়ার বার্তা।',
+    '',
+    0,
+    0
+FROM stories s
+WHERE s.title = 'কাটা_হাত';
+
+
+-- =========================================================
+-- 8. CHAPTER 4
+-- =========================================================
+
+INSERT OR IGNORE INTO chapters (
+    story_id,
+    chapter_number,
+    title,
+    content,
+    word_count,
+    is_locked
+)
+SELECT
+    s.id,
+    4,
+    '৪র্থ পর্ব — কাটা হাতের কথা বলা, ম্যাপ নির্দেশ ও সুদূর যাত্রা।',
+    '',
+    0,
+    0
+FROM stories s
+WHERE s.title = 'কাটা_হাত';
+
+
+-- =========================================================
+-- 9. CHAPTER 5
+-- =========================================================
+
+INSERT OR IGNORE INTO chapters (
+    story_id,
+    chapter_number,
+    title,
+    content,
+    word_count,
+    is_locked
+)
+SELECT
+    s.id,
+    5,
+    '৫ম পর্ব — হোটেল সানে আগমন, জঙ্গল সফর ও রহস্যময় টানেলে পতন।',
+    '',
+    0,
+    0
+FROM stories s
+WHERE s.title = 'কাটা_হাত';
+
+
+-- =========================================================
+-- 10. CHAPTER 6
+-- =========================================================
+
+INSERT OR IGNORE INTO chapters (
+    story_id,
+    chapter_number,
+    title,
+    content,
+    word_count,
+    is_locked
+)
+SELECT
+    s.id,
+    6,
+    '৬ষ্ঠ পর্ব — অন্ধকূপের মধ্যে রহস্যময় লামার আগমন ও চাবির ইঙ্গিত।',
+    '',
+    0,
+    0
+FROM stories s
+WHERE s.title = 'কাটা_হাত';
+
+
+-- =========================================================
+-- 11. CHAPTER 7
+-- =========================================================
+
+INSERT OR IGNORE INTO chapters (
+    story_id,
+    chapter_number,
+    title,
+    content,
+    word_count,
+    is_locked
+)
+SELECT
+    s.id,
+    7,
+    '৭ম পর্ব — কম্পাস দিয়ে পথ খোঁজা ও লামার অদ্ভুত গায়েব হওয়া।',
+    '',
+    0,
+    0
+FROM stories s
+WHERE s.title = 'কাটা_হাত';
+
+
+-- =========================================================
+-- 12. CHAPTER 8
+-- =========================================================
+
+INSERT OR IGNORE INTO chapters (
+    story_id,
+    chapter_number,
+    title,
+    content,
+    word_count,
+    is_locked
+)
+SELECT
+    s.id,
+    8,
+    '৮ম পর্ব (শেষ পর্ব) — অগ্নিকুণ্ড পার হয়ে চাবি উদ্ধার ও রাজার মুক্তি।',
+    '',
+    0,
+    0
+FROM stories s
+WHERE s.title = 'কাটা_হাত';
+
+
+COMMIT;
+
+
+-- =========================================================
+-- 13. CHECK RESULT
+-- =========================================================
+
+SELECT
+    s.id AS story_id,
+    s.title AS story_title,
+    a.name AS author,
+    c.name AS category,
+    ch.chapter_number,
+    ch.title AS chapter_title,
+    ch.content AS chapter_content
+FROM stories s
+LEFT JOIN authors a
+    ON a.id = s.author_id
+LEFT JOIN story_categories sc
+    ON sc.story_id = s.id
+LEFT JOIN categories c
+    ON c.id = sc.category_id
+LEFT JOIN chapters ch
+    ON ch.story_id = s.id
+WHERE s.title = 'কাটা_হাত'
+ORDER BY ch.chapter_number;
